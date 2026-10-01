@@ -3,6 +3,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 from utils.config import BASE_URL, AUTH_STATE_PATH
+from utils.session_helper import save_session_storage
 
 
 def save_login_session():
@@ -15,9 +16,13 @@ def save_login_session():
         page.goto(BASE_URL)
 
         print("Log in with your email and the OTP in the browser window.")
-        input("Once you are logged in, press Enter here to save the session... ")
+        print("Wait until the header shows you as logged in, and check")
+        print("that the avatar menu no longer offers Login.")
+        input("Then press Enter here to save the session... ")
 
         context.storage_state(path=AUTH_STATE_PATH, indexed_db=True)
+        keys = save_session_storage(page)
+        print("sessionStorage keys saved:", len(keys), keys)
         browser.close()
 
 

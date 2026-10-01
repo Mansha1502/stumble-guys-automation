@@ -1,4 +1,4 @@
-from playwright.sync_api import Page
+from playwright.sync_api import Page, TimeoutError as PlaywrightTimeout
 
 
 class BasePage:
@@ -11,3 +11,10 @@ class BasePage:
 
     def get_title(self):
         return self.page.title()
+
+    def accept_cookies(self):
+        accept_button = self.page.get_by_role("button", name="Accept All")
+        try:
+            accept_button.click(timeout=5000)
+        except PlaywrightTimeout:
+            pass
