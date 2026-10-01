@@ -1,0 +1,8 @@
+.venv/
+.env
+auth/
+__pycache__/
+.pytest_cache/
+test-results/
+.idea/
+.DS_Store
