@@ -7,9 +7,7 @@ class HomePage(BasePage):
 
     def __init__(self, page: Page):
         super().__init__(page)
+        self.play_now_button = page.get_by_role("button", name="Play Now!")
 
-    def is_stumble_guys_visible(self):
-        return self.page.get_by_text("Stumble Guys").first.is_visible()
-
-    def hover_profile_icon(self):
-        self.page.get_by_alt_text("avatar").hover()
+    def click_play_now(self):
+        self.play_now_button.click()
