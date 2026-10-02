@@ -45,5 +45,6 @@ def test_saved_session_keeps_user_logged_in(logged_in_page: Page, base_url: str)
     login_page.navigate(base_url)
     login_page.accept_cookies()
 
-    expect(login_page.login_button.first).to_be_hidden()
+    login_page.open_account_menu()
 
+    expect(login_page.logout_button).to_be_visible()
