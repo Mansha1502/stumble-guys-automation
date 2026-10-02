@@ -12,11 +12,11 @@ def base_url():
 
 
 @pytest.fixture
-def logged_in_page(browser):
+def logged_in_page(browser, browser_context_args):
     if not os.path.exists(AUTH_STATE_PATH):
         pytest.skip("No saved session found. Run: python -m utils.save_session")
 
-    context = browser.new_context(storage_state=AUTH_STATE_PATH)
+    context = browser.new_context(**browser_context_args, storage_state=AUTH_STATE_PATH)
     restore_session_storage(context)
     page = context.new_page()
     yield page
