@@ -9,7 +9,7 @@ Desktop runs use Playwright on Chrome. Mobile runs use Appium on a real iPhone 1
 | --- | --- | --- |
 | Home page | Play Now button is shown | - |
 | Login | Login form offers email login, invalid email shows an error, a valid email reaches the OTP screen, a saved session stays logged in | Login form offers email login, invalid email shows an error |
-| Purchase | A visitor is asked to log in when buying, a logged-in user reaches the card form | A visitor is asked to log in when buying |
+| Purchase | A visitor is asked to log in when buying, a logged-in user reaches the card form | A visitor is asked to log in when buying and reaches the card form |
 
 The purchase test stops on the card details form. It never types card details and never clicks Pay.
 
