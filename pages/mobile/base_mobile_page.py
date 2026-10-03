@@ -1,5 +1,8 @@
 from selenium.common.exceptions import StaleElementReferenceException, TimeoutException
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
+
+COOKIE_OVERLAY = (By.ID, "uc-overlay")
 
 # Looks for a button with this text in the page and inside any shadow DOM
 CLICK_BUTTON_JS = """
@@ -64,5 +67,11 @@ class BaseMobilePage:
             WebDriverWait(self.driver, 10).until(
                 lambda driver: driver.execute_script(CLICK_BUTTON_JS, "Accept All")
             )
+        except TimeoutException:
+            return
+
+        # The banner fades out, and taps landing on it would not reach the page
+        try:
+            WebDriverWait(self.driver, 5).until(lambda driver: not self._first_visible(COOKIE_OVERLAY))
         except TimeoutException:
             pass

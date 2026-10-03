@@ -70,10 +70,19 @@ skipped with a message. If they start failing with a "Session expired" dialog, s
 ## Running the mobile tests
 
 ```
-python -m pytest tests/mobile -v
+python -m pytest tests/mobile/test_mobile_flows.py -v
 ```
 
-These start a session on a real iPhone 15 in BrowserStack.
+These start sessions on a real iPhone 15 in BrowserStack and use trial minutes, so they are not part of the
+default run.
+
+There is also an interactive purchase test for iOS, which asks you to type the login code from your email:
+
+```
+python -m pytest tests/mobile/test_mobile_purchase.py -s -v
+```
+
+It is an experiment and is not part of the default run. See the limitations below.
 
 ## Supported browsers and devices
 
@@ -90,3 +99,9 @@ These start a session on a real iPhone 15 in BrowserStack.
   may need updating if the site is redesigned.
 - The price currency depends on the region, so the tests match any common currency symbol.
 - The WebGL game (bonus) is not covered yet.
+- The three iOS tests that pass cover : the login form, the invalid email error and the
+  shop asking a visitor to log in.
+- The iOS purchase flow (log in with a code, then reach the card form) is not part of the passing suite. The
+  login redirects to Scopely's sign-in page, and on the BrowserStack iPhone the test did not get from that
+  page to the code boxes. The same flow was checked by hand on an emulated iPhone (WebKit, iPhone 15 profile)
+  and worked. The desktop purchase flow is fully automated.
